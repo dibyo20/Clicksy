@@ -87,7 +87,7 @@ cd Frontend
 npm install
 
 # Backend
-cd ../Backend
+cd Backend
 npm install
 ```
 
