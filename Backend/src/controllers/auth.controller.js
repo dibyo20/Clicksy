@@ -1,110 +1,92 @@
-const authModel = require("../models/auth.model.js");
+const userModel = require("../models/user.model.js");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-async function register(req, res) {
-    const { username, email, password } = req.body;
+async function registerController(req, res) {
+    const { username, email, password, bio, profileImage } = req.body;
 
-    if (!username || !email || !password) {
-        return res.status(400).json({
-            message: "Please fill all fields"
-        });
-    }
-
-    if (password.length < 6) {
-        return res.status(400).json({
-            message: "Password must be at least 6 characters"
-        });
-    }
-
-    const isUserExists = await authModel.findOne({ email: email });
+    const isUserExists = await userModel.findOne({
+        $or: [{ username }, { email }],
+    });
 
     if (isUserExists) {
         return res.status(400).json({
-            message: "User already exists"
+            message: "Username or email already exists",
         });
     }
 
-    const hashedPassword = await crypto.createHash("md5").update(password).digest("hex");
+    const hashedPassword = crypto.createHash("md5").update(password).digest("hex");
 
-    const newUser = await authModel.create({
+    const user = await userModel.create({
         username,
         email,
         password: hashedPassword,
+        bio,
+        profileImage,
     });
 
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    res.cookie("token", token);
+
     return res.status(201).json({
-        message: "User created successfully",
-        user: newUser
+        message: "User registered successfully",
+        user: {
+            email: user.email,
+            username: user.username,
+            bio: user.bio,
+            profileImage: user.profileImage,
+        }
     });
 }
 
-async function login(req, res) {
-    const { email, password } = req.body;
+/**
+   * username
+   * password
+   *
+   * { username:test, email:undefined, password:Test12 } = req.body
+   *
+   * email
+   * password
+   *
+   * { username:undefined, email:test@test.com, password:Test12 } = req.body
+   *
+   */
+async function loginController(req, res) {
+    const { username, email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({
-            message: "Please fill all fields"
-        });
-    }
-
-    const user = await authModel.findOne({ email: email });
+    const user = await userModel.findOne({ $or: [{ username: username }, { email: email }] });
 
     if (!user) {
         return res.status(400).json({
-            message: "User not found"
-        })
-    }
-
-    const hashedPassword = await crypto.createHash("md5").update(password).digest("hex");
-
-    if (hashedPassword !== user.password) {
-        return res.status(400).json({
-            message: "Invalid Credentials"
+            message: "User not found",
         });
     }
 
-    const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "10s" });
+    const hashedPassword = crypto.createHash("md5").update(password).digest("hex");
+
+    const isPasswordCorrect = hashedPassword === user.password;
+
+    if (!isPasswordCorrect) {
+        return res.status(400).json({
+            message: "Password is incorrect",
+        });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
     res.cookie("token", token);
 
     return res.status(200).json({
-        message: "Login Successful",
-        data: {
+        message: "Login successful",
+        user: {
             username: user.username,
-            email: user.email
+            email: user.email,
+            bio: user.bio,
+            profileImage: user.profileImage,
         }
-    });
-}
-
-async function profile(req, res) {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json({
-            message: "Unauthorized"
-        });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    res.status(200).json({
-        message: "User Profile",
-        data: {
-            username: decoded.username,
-        }
-    });
-}
-
-async function logout(req, res) {
-    res.clearCookie("token");
-    res.status(200).json({
-        message: "Logout Successful"
     });
 }
 
 module.exports = {
-    register,
-    login,
-    profile,
-    logout,
+    registerController,
+    loginController,
 };
