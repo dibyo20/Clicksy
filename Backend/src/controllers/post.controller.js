@@ -59,7 +59,7 @@ async function getPostDetails(req, res) {
     return res.status(200).json({
         message: "Post details fetched successfully",
         post: post,
-    });
+    })
 }
 
 module.exports = {
