@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
 async function registerController(req, res) {
-    const { username, email, password, bio, profileImage } = req.body;
+    const { fullname, username, email, password, bio, profileImage } = req.body;
 
     const isUserExists = await userModel.findOne({
         $or: [{ username }, { email }],
@@ -18,6 +18,7 @@ async function registerController(req, res) {
     const hashedPassword = crypto.createHash("md5").update(password).digest("hex");
 
     const user = await userModel.create({
+        fullname,
         username,
         email,
         password: hashedPassword,
@@ -31,6 +32,7 @@ async function registerController(req, res) {
     return res.status(201).json({
         message: "User registered successfully",
         user: {
+            fullname: user.fullname,
             email: user.email,
             username: user.username,
             bio: user.bio,
