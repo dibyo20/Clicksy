@@ -101,4 +101,4 @@ module.exports = {
     followStatus,
     acceptUser,
     rejectUser,
-}
+};
