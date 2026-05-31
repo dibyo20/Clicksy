@@ -1,6 +1,11 @@
 const followModel = require("../models/follow.model.js");
 const userModel = require("../models/user.model.js");
 
+async function getUserProfile(req, res) {
+    const user = await userModel.findOne({ username: req.user.username });
+    res.status(200).json({ user });
+}
+
 async function followUser(req, res) {
     const followerUsername = req.user.username;
     const followeeUsername = req.params.username;
@@ -96,6 +101,7 @@ async function rejectUser(req, res) {
 }
 
 module.exports = {
+    getUserProfile,
     followUser,
     unfollowUser,
     followStatus,
