@@ -1,30 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/Login.scss";
-import axios from "axios";
+import { useAuth } from "../hooks/useAuth.js";
 
 const Login = () => {
-  const [identifier, setIdentifier] = useState("");
+  const { user, loading, handleLogin } = useAuth();
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "http://localhost:5000/api/auth/login",
-        {
-          username: identifier,
-          password: password,
-        },
-        { withCredentials: true },
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await handleLogin(username, password);
+    navigate("/");
   };
 
   return (
@@ -40,12 +30,12 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="identifier">Username or Email</label>
+                <label htmlFor="username">Username or Email</label>
                 <input
                   type="text"
-                  id="identifier"
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder="name@company.com or name12"
                   required
                 />
@@ -70,7 +60,7 @@ const Login = () => {
               </div>
 
               <button type="submit" className="submit-btn">
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
             </form>
 

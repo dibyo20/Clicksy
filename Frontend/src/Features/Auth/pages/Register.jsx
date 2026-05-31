@@ -1,34 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/Register.scss";
-import axios from "axios";
+import { useAuth } from "../hooks/useAuth.js";
 
 const Register = () => {
+  const { user, loading, handleRegister } = useAuth();
+  const navigate = useNavigate();
+
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "http://localhost:5000/api/auth/register",
-        {
-          fullname: fullName,
-          username: username,
-          email: email,
-          password: password,
-        },
-        { withCredentials: true },
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await handleRegister(fullName, username, email, password);
+    navigate("/");
   };
 
   return (
@@ -98,7 +86,7 @@ const Register = () => {
                 className="submit-btn"
                 style={{ marginTop: "12px" }}
               >
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
 
               <div className="register-footer">
