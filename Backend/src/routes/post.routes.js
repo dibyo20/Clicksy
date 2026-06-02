@@ -1,5 +1,5 @@
 const postRouter = require("express").Router();
-const { createPost, getPosts, getPostDetails, likePost } = require("../controllers/post.controller.js");
+const { createPost, getPosts, getPostDetails, getAllPosts, likePost } = require("../controllers/post.controller.js");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const { identifyUser } = require("../middlewares/auth.middleware.js");
@@ -14,6 +14,11 @@ postRouter.post("/", identifyUser, upload.single("image"), createPost);
  * GET /api/posts/ [protected]
  */
 postRouter.get("/", identifyUser, getPosts);
+
+/**
+//  * GET /api/posts/all [protected]
+ */
+postRouter.get("/all", identifyUser, getAllPosts);
 
 /**
  * GET /api/posts/details/:id [protected]
