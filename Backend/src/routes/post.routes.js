@@ -16,16 +16,16 @@ postRouter.post("/", identifyUser, upload.single("image"), createPost);
 postRouter.get("/", identifyUser, getPosts);
 
 /**
-//  * GET /api/posts/all [protected]
- */
-postRouter.get("/all", identifyUser, getAllPosts);
-
-/**
  * GET /api/posts/details/:id [protected]
  * - req.params = { id }
  * - return a detail about a post with id & also check if the post belongs to the user or not
  */
 postRouter.get("/:id", identifyUser, getPostDetails);
+
+/**
+ * GET /api/posts/all [protected]
+ */
+postRouter.get("/all", identifyUser, getAllPosts);
 
 /**
  * POST /api/posts/like/:postId [protected]
