@@ -64,21 +64,21 @@ const Post = () => {
           <div className="story-avatar-wrapper ring-active">
             <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Sarah.J" className="story-avatar" />
           </div>
-          <span className="story-username">Sarah_J</span>
+          <span className="story-username">Test1</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Marcus" className="story-avatar" />
           </div>
-          <span className="story-username">Marcus</span>
+          <span className="story-username">Test2</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Elena.V" className="story-avatar" />
           </div>
-          <span className="story-username">Elena.V</span>
+          <span className="story-username">Test3</span>
         </div>
       </section>
 
