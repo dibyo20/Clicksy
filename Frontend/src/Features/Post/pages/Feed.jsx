@@ -40,7 +40,7 @@ const Feed = () => {
       ),
     },
     {
-      name: "Explore",
+      name: "Reels",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -50,8 +50,11 @@ const Feed = () => {
           stroke="currentColor"
           strokeWidth="2"
         >
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+          <rect x="3" y="4" width="18" height="18" rx="3" />
+          <path d="M3 9h18" />
+          <path d="M8 4l3 5" />
+          <path d="M15 4l3 5" />
+          <polygon points="10 13 16 16 10 19 10 13" />
         </svg>
       ),
     },
