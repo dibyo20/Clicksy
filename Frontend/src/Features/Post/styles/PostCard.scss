@@ -1,0 +1,245 @@
+.post-card {
+  background: rgba(18, 18, 22, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+    .post-author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .author-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background-color: #222;
+        transition: border-color 0.3s ease;
+
+        &:hover {
+          border-color: #0070f3;
+        }
+      }
+
+      .author-details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .author-name {
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #f4f4f5;
+          margin: 0;
+          letter-spacing: -0.01em;
+        }
+
+        .post-meta {
+          font-size: 0.75rem;
+          color: #a1a1aa;
+          margin: 0;
+        }
+      }
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      color: #a1a1aa;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #f4f4f5;
+      }
+    }
+  }
+
+  .post-image-wrapper {
+    width: 100%;
+    position: relative;
+    background: #09090b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    .post-image {
+      width: 100%;
+      height: auto;
+      max-height: 580px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+
+      &:hover {
+        transform: scale(1.015);
+      }
+    }
+  }
+
+  .post-footer {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .interaction-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .left-interactions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .action-btn {
+        background: none;
+        border: none;
+        color: #e4e4e7;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s ease;
+
+        &:hover {
+          transform: scale(1.15);
+          color: #f4f4f5;
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+
+        &.like-btn {
+          &.liked {
+            color: #0070f3; // mockup has some blue elements, user mockup showed a blue heart or blue-purple theme
+            filter: drop-shadow(0 0 6px rgba(0, 112, 243, 0.4));
+            transform: scale(1.1);
+          }
+        }
+
+        &.bookmark-btn {
+          &.bookmarked {
+            color: #f4f4f5;
+          }
+        }
+      }
+    }
+
+    .likes-display {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #f4f4f5;
+      letter-spacing: -0.01em;
+    }
+
+    .post-caption-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .caption-text {
+        font-size: 0.88rem;
+        line-height: 1.5;
+        color: #d4d4d8;
+        margin: 0;
+
+        .caption-username {
+          font-weight: 600;
+          color: #f4f4f5;
+          margin-right: 6px;
+        }
+      }
+
+      .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+
+        .tag-pill {
+          background: rgba(13, 148, 136, 0.1);
+          color: #0d9488;
+          font-size: 0.7rem;
+          font-weight: 700;
+          padding: 3px 8px;
+          border-radius: 4px;
+          letter-spacing: 0.05em;
+          border: 1px solid rgba(13, 148, 136, 0.15);
+          text-transform: uppercase;
+          transition: background 0.2s ease, color 0.2s ease;
+
+          &:hover {
+            background: rgba(13, 148, 136, 0.2);
+            color: #14b8a6;
+            cursor: pointer;
+          }
+
+          // Alternatively use blue tag style based on first hashtag
+          &:nth-child(even) {
+            background: rgba(0, 112, 243, 0.1);
+            color: #0070f3;
+            border-color: rgba(0, 112, 243, 0.15);
+            &:hover {
+              background: rgba(0, 112, 243, 0.2);
+              color: #3b82f6;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .post-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 8px;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .post-image-wrapper {
+      .post-image {
+        max-height: 480px;
+      }
+    }
+  }
+}

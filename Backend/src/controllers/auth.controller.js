@@ -80,6 +80,7 @@ async function loginController(req, res) {
     return res.status(200).json({
         message: "Login successful",
         user: {
+            fullname: user.fullname,
             username: user.username,
             email: user.email,
             bio: user.bio,
