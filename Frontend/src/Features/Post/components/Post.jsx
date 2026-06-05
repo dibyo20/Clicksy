@@ -42,12 +42,12 @@ const Post = () => {
         <div className="story-item add-story">
           <div className="story-avatar-wrapper">
             <img
-              src={profileImage || "https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"}
+              src={profileImage}
               alt="Add Story"
               className="story-avatar"
-              onError={(e) => {
-                e.target.src = "https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg";
-              }}
+              // onError={(e) => {
+              //   e.target.src = "https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg";
+              // }}
             />
             <div className="plus-badge">
               <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3">
@@ -62,21 +62,21 @@ const Post = () => {
         {/* Mock Follower Stories */}
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Sarah.J" className="story-avatar" />
+            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test1" className="story-avatar" />
           </div>
           <span className="story-username">Test1</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Marcus" className="story-avatar" />
+            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test2" className="story-avatar" />
           </div>
           <span className="story-username">Test2</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Elena.V" className="story-avatar" />
+            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test3" className="story-avatar" />
           </div>
           <span className="story-username">Test3</span>
         </div>

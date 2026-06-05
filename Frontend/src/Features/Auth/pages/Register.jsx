@@ -16,7 +16,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleRegister(fullName, username, email, password);
-    navigate("/");
+    navigate("/feed");
   };
 
   return (
