@@ -4,8 +4,8 @@ import { useAuth } from "../../Auth/hooks/useAuth.js";
 import PostCard from "./PostCard.jsx";
 
 const Post = () => {
-  const { feed, loading } = usePost();
-  
+  const { feed, loading, handleLike } = usePost();
+
   const { user } = useAuth();
   const { profileImage } = user || {};
 
@@ -50,7 +50,14 @@ const Post = () => {
               // }}
             />
             <div className="plus-badge">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3">
+              <svg
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+              >
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
@@ -62,21 +69,33 @@ const Post = () => {
         {/* Mock Follower Stories */}
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test1" className="story-avatar" />
+            <img
+              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              alt="Test1"
+              className="story-avatar"
+            />
           </div>
           <span className="story-username">Test1</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test2" className="story-avatar" />
+            <img
+              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              alt="Test2"
+              className="story-avatar"
+            />
           </div>
           <span className="story-username">Test2</span>
         </div>
 
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
-            <img src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg" alt="Test3" className="story-avatar" />
+            <img
+              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              alt="Test3"
+              className="story-avatar"
+            />
           </div>
           <span className="story-username">Test3</span>
         </div>
@@ -89,21 +108,31 @@ const Post = () => {
             <PostCard
               key={post._id}
               post={post}
-              isLiked={false}
-              likesCount={0}
+              isLiked={post.isLiked}
+              handleLike={handleLike}
             />
           ))
         ) : (
           <div className="empty-state">
             <div className="empty-icon-wrapper">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg
+                viewBox="0 0 24 24"
+                width="48"
+                height="48"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
               </svg>
             </div>
             <h3>No Posts Yet</h3>
-            <p>Follow members or create posts to see updates on your clickly feed.</p>
+            <p>
+              Follow members or create posts to see updates on your clickly
+              feed.
+            </p>
           </div>
         )}
       </section>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/PostCard.scss";
 
-const PostCard = ({ post, isLiked = false, likesCount = 0, onLike }) => {
+const PostCard = ({ post, isLiked, handleLike }) => {
   const { _id, caption, imgurl, user, createdAt } = post;
   const { fullname, username, profileImage } = user;
 
@@ -74,7 +74,7 @@ const PostCard = ({ post, isLiked = false, likesCount = 0, onLike }) => {
           <div className="left-interactions">
             {/* On click triggers onLike event prop */}
             <button
-              onClick={() => onLike && onLike(_id)}
+              onClick={() => handleLike(post._id)}
               className={`action-btn like-btn ${isLiked ? "liked" : ""}`}
               aria-label={isLiked ? "Unlike post" : "Like post"}
             >
@@ -166,11 +166,6 @@ const PostCard = ({ post, isLiked = false, likesCount = 0, onLike }) => {
               </svg>
             )}
           </button>
-        </div>
-
-        {/* Likes Count */}
-        <div className="likes-display">
-          <span>{likesCount.toLocaleString()} likes</span>
         </div>
 
         {/* Caption & Hashtags */}
