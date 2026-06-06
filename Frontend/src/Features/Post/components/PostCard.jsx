@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/PostCard.scss";
 
-const PostCard = ({ post, isLiked, handleLike }) => {
+const PostCard = ({ post, isLiked, handleLike, handleUnlike }) => {
   const { _id, caption, imgurl, user, createdAt } = post;
   const { fullname, username, profileImage } = user;
 
@@ -74,7 +74,9 @@ const PostCard = ({ post, isLiked, handleLike }) => {
           <div className="left-interactions">
             {/* On click triggers onLike event prop */}
             <button
-              onClick={() => handleLike(post._id)}
+              onClick={() =>
+                isLiked ? handleUnlike(post._id)  : handleLike(post._id)
+              }
               className={`action-btn like-btn ${isLiked ? "liked" : ""}`}
               aria-label={isLiked ? "Unlike post" : "Like post"}
             >

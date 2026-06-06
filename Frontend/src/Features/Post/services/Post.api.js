@@ -24,4 +24,9 @@ export async function likePost(postId) {
     return response.data;
 }
 
+export async function unlikePost(postId) {
+    const response = await api.post(`/unlike/${postId}`);
+    return response.data;
+}
+
 export default api;

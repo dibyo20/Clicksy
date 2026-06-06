@@ -4,7 +4,7 @@ import { useAuth } from "../../Auth/hooks/useAuth.js";
 import PostCard from "./PostCard.jsx";
 
 const Post = () => {
-  const { feed, loading, handleLike } = usePost();
+  const { feed, loading, handleLike, handleUnlike } = usePost();
 
   const { user } = useAuth();
   const { profileImage } = user || {};
@@ -110,6 +110,7 @@ const Post = () => {
               post={post}
               isLiked={post.isLiked}
               handleLike={handleLike}
+              handleUnlike={handleUnlike}
             />
           ))
         ) : (
