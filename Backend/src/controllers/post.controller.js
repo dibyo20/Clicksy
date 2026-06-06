@@ -9,22 +9,34 @@ const imagekit = new ImageKit({
 });
 
 async function createPost(req, res) {
-    const file = await imagekit.files.upload({
-        file: await toFile(Buffer.from(req.file.buffer), "file"),
-        fileName: "Test",
-        folder: "Clicksy",
-    });
+    try {
+        console.log("file:", req.file);
+        console.log("user:", req.user);
 
-    const post = await postModel.create({
-        caption: req.body.caption,
-        imgurl: file.url,
-        user: req.user.id,
-    });
+        const file = await imagekit.files.upload({
+            file: await toFile(Buffer.from(req.file.buffer), "file"),
+            fileName: "Test",
+            folder: "Clicksy",
+        });
 
-    return res.status(201).json({
-        message: "Post created successfully",
-        post: post,
-    });
+        const post = await postModel.create({
+            caption: req.body.caption,
+            imgurl: file.url,
+            user: req.user.id,
+        });
+
+        await post.populate("user", "-password");
+
+        return res.status(201).json({
+            message: "Post created successfully",
+            post: post,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+
 }
 
 async function getUserPosts(req, res) {

@@ -9,7 +9,13 @@ $text-primary: #f4f4f5;
 $text-secondary: #a1a1aa;
 $text-muted: #71717a;
 $sidebar-width: 250px;
-$font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-family:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
 
 // Base Feed page layout container
 .feed-container {
@@ -136,7 +142,9 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
         align-items: center;
         justify-content: center;
         color: $text-secondary;
-        transition: color 0.2s ease, transform 0.2s ease;
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
       }
 
       &:hover {
@@ -245,7 +253,9 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: color 0.2s ease, background-color 0.2s ease;
+      transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
 
       &:hover {
         color: $text-primary;
@@ -279,7 +289,7 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
     margin-bottom: 12px;
     overflow-x: auto;
     scrollbar-width: none; // Firefox
-    
+
     &::-webkit-scrollbar {
       display: none; // Chrome/Safari
     }
@@ -314,7 +324,12 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
 
         &.ring-active {
           // Neon glow ring for unread stories
-          background: linear-gradient(135deg, #0070f3 0%, #00d2ff 50%, #7928ca 100%);
+          background: linear-gradient(
+            135deg,
+            #0070f3 0%,
+            #00d2ff 50%,
+            #7928ca 100%
+          );
           animation: ringPulse 2s infinite ease-in-out;
         }
       }
@@ -355,7 +370,6 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
     }
   }
 }
-
 
 // Skeletons Styling
 .skeletons-container {
@@ -416,7 +430,7 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
   border: 1px solid $card-border;
   border-radius: 16px;
   backdrop-filter: blur(12px);
-  
+
   .empty-icon-wrapper {
     width: 80px;
     height: 80px;
@@ -519,7 +533,7 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
       height: 40px;
       border-radius: 50%;
       box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
-      
+
       &:active {
         transform: scale(0.95);
       }
@@ -527,7 +541,125 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
   }
 }
 
-// Keyframes
+// Modal Styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .create-post-modal {
+    background: $card-bg;
+    border: 1px solid $card-border;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 24px;
+    border-radius: 16px;
+    width: 400px;
+    max-width: 90vw;
+    color: $text-primary;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: $text-secondary;
+      }
+
+      input[type="file"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid $card-border;
+        border-radius: 8px;
+        color: $text-primary;
+        box-sizing: border-box;
+        font-family: $font-family;
+        transition:
+          border-color 0.2s ease,
+          background-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $color-accent;
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+
+      button {
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.btn-cancel {
+          background: transparent;
+          border: 1px solid $card-border;
+          color: $text-primary;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.05);
+          }
+        }
+
+        &.btn-submit {
+          background: $color-accent;
+          border: none;
+          color: #fff;
+          box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2);
+
+          &:hover:not(:disabled) {
+            background: $color-accent-hover;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+
 @keyframes ringPulse {
   0% {
     box-shadow: 0 0 0 0px rgba(0, 112, 243, 0.2);
@@ -548,7 +680,7 @@ $font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
 
   .feed-layout {
     grid-template-columns: 1fr;
-    padding-bottom: 64px; // Leave room for bottom nav
+    padding-bottom: 64px;
   }
 
   .left-sidebar {

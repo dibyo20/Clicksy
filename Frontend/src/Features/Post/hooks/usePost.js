@@ -1,19 +1,26 @@
 import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../post.context.jsx";
-import { getFeed } from "../services/Post.api.js"
+import { getFeed, createPost } from "../services/Post.api.js"
 
 export const usePost = () => {
     const context = useContext(PostContext);
-    if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
     const { loading, setLoading, feed, setFeed } = context;
 
     const handleGetFeed = async () => {
         setLoading(true);
         try {
             const data = await getFeed();
-            setFeed(data.posts.reverse());
+            setFeed(data.posts);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleCreatePost = async (caption, image) => {
+        setLoading(true);
+        try {
+            const data = await createPost(caption, image);
+            setFeed([data.post, ...feed]);
         } finally {
             setLoading(false);
         }
@@ -27,5 +34,6 @@ export const usePost = () => {
         loading,
         feed,
         handleGetFeed,
+        handleCreatePost,
     }
 }
