@@ -84,6 +84,14 @@ async function likePost(req, res) {
         });
     }
 
+    const isLiked = await likeModel.findOne({ user: username, post: postId });
+
+    if (isLiked) {
+        return res.status(400).json({
+            message: "You have already liked this post"
+        });
+    }
+
     const like = await likeModel.create({
         user: username,
         post: postId,
@@ -95,10 +103,42 @@ async function likePost(req, res) {
     });
 }
 
+async function unlikePost(req, res) {
+    const username = req.user.username;
+    const postId = req.params.postId;
+
+    const post = await postModel.findById(postId);
+
+    if (!post) {
+        return res.status(404).json({
+            message: "Post not found"
+        });
+    }
+
+    const isLiked = await likeModel.findOne({ user: username, post: postId });
+
+    if (!isLiked) {
+        return res.status(400).json({
+            message: "You have not liked this post"
+        });
+    }
+
+    const unlike = await likeModel.findOneAndDelete({
+        user: username,
+        post: postId,
+    });
+
+    return res.status(200).json({
+        message: "Post unliked successfully",
+        unlike,
+    });
+}
+
 module.exports = {
     createPost,
     getUserPosts,
     getPostDetails,
     getAllPosts,
     likePost,
+    unlikePost,
 };

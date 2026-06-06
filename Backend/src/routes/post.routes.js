@@ -1,5 +1,5 @@
 const postRouter = require("express").Router();
-const { createPost, getUserPosts, getPostDetails, getAllPosts, likePost } = require("../controllers/post.controller.js");
+const { createPost, getUserPosts, getPostDetails, getAllPosts, likePost, unlikePost } = require("../controllers/post.controller.js");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const { identifyUser } = require("../middlewares/auth.middleware.js");
@@ -33,5 +33,12 @@ postRouter.get("/feed", identifyUser, getAllPosts);
  * - req.user = { username }
  */
 postRouter.post("/like/:postId", identifyUser, likePost);
+
+/**
+ * POST /api/posts/unlike/:postId [protected]
+ * - req.params = { postId }
+ * - req.user = { username }
+ */
+postRouter.post("/unlike/:postId", identifyUser, unlikePost);
 
 module.exports = postRouter;
