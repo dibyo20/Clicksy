@@ -64,7 +64,15 @@ async function getPostDetails(req, res) {
 }
 
 async function getAllPosts(req, res) {
-    const posts = await postModel.find().populate("user", "-password");
+    const posts = await Promise.all((await postModel.find().populate("user", "-password").sort({ _id: -1 }).lean())
+        .map(async (post) => {
+            const isLiked = await likeModel.findOne({
+                user: req.user.username,
+                post: post._id,
+            });
+            post.isLiked = Boolean(isLiked);
+            return post;
+        }));
 
     return res.status(200).json({
         message: "Posts fetched successfully",
