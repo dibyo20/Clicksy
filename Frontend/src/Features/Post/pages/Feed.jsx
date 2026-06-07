@@ -7,6 +7,7 @@ import Post from "../components/Post.jsx";
 import SideBar from "../components/SideBar.jsx";
 import ComingSoon from "../components/ComingSoon.jsx";
 import UsersModal from "../components/UsersModal.jsx";
+import NotificationsModal from "../components/NotificationsModal.jsx";
 import "../styles/Feed.scss";
 import { useAuth } from "../../Auth/hooks/useAuth.js";
 
@@ -181,7 +182,7 @@ const Feed = () => {
         {activeTab === "users" && <Post />} {/* Keep post/feed in background */}
         {activeTab === "Reels" && <ComingSoon title="Reels" />}
         {activeTab === "Messages" && <ComingSoon title="Messages" />}
-        {activeTab === "Notifications" && <ComingSoon title="Notifications" />}
+        {activeTab === "Notifications" && <Post />} {/* Keep post/feed in background */}
         {activeTab === "Profile" && <ComingSoon title="Profile" />}
       </div>
 
@@ -200,6 +201,11 @@ const Feed = () => {
 
       <UsersModal
         isOpen={activeTab === "users"}
+        onClose={() => navigate("/feed")}
+      />
+
+      <NotificationsModal
+        isOpen={activeTab === "Notifications"}
         onClose={() => navigate("/feed")}
       />
     </div>
