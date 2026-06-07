@@ -100,6 +100,18 @@ async function rejectUser(req, res) {
     });
 }
 
+async function followers(req, res) {
+    const user = req.user.username;
+    const followers = await followModel.find({ followee: user, status: "accepted" });
+    return res.status(200).json(followers);
+}
+
+async function following(req, res) {
+    const user = req.user.username;
+    const following = await followModel.find({ follower: user, status: "accepted" });
+    return res.status(200).json(following);
+}
+
 module.exports = {
     getUserProfile,
     followUser,
@@ -107,4 +119,6 @@ module.exports = {
     requestedUsers,
     acceptUser,
     rejectUser,
+    followers,
+    following,
 };

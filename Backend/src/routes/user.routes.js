@@ -1,5 +1,5 @@
 const userRouter = require("express").Router();
-const { getUserProfile, followUser, unfollowUser, requestedUsers, acceptUser, rejectUser } = require("../controllers/user.controller.js");
+const { getUserProfile, followUser, unfollowUser, requestedUsers, acceptUser, rejectUser, followers, following } = require("../controllers/user.controller.js");
 const { identifyUser } = require("../middlewares/auth.middleware.js");
 
 /**
@@ -50,6 +50,18 @@ userRouter.post("/status/accept/:username", identifyUser, acceptUser);
  */
 userRouter.post("/status/reject/:username", identifyUser, rejectUser);
 
+/**
+ * GET /api/users/followers
+ * Description: Get followers
+ * Protected: Yes
+ */
+userRouter.get("/followers", identifyUser, followers);
 
+/**
+ * GET /api/users/following
+ * Description: Get following
+ * Protected: Yes
+ */
+userRouter.get("/following", identifyUser, following);
 
 module.exports = userRouter;
