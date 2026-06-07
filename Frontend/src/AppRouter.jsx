@@ -13,6 +13,11 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/reels" element={<Feed />} />
+        <Route path="/messages" element={<Feed />} />
+        <Route path="/users" element={<Feed />} />
+        <Route path="/notification" element={<Feed />} />
+        <Route path="/profile" element={<Feed />} />
       </Routes>
     </BrowserRouter>
   );
