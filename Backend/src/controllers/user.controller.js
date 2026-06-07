@@ -57,15 +57,15 @@ async function unfollowUser(req, res) {
     });
 }
 
-async function followStatus(req, res) {
+async function requestedUsers(req, res) {
     const user = req.user.username;
 
-    const request = await followModel.findOne({
+    const request = await followModel.find({
         followee: user,
         status: "pending",
     });
 
-    return res.status(200).json({ request });
+    return res.status(200).json({ pendingRequests: request });
 }
 
 async function acceptUser(req, res) {
@@ -104,7 +104,7 @@ module.exports = {
     getUserProfile,
     followUser,
     unfollowUser,
-    followStatus,
+    requestedUsers,
     acceptUser,
     rejectUser,
 };
