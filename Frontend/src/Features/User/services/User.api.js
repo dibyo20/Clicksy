@@ -11,8 +11,20 @@ export async function getNotFollowingUsers() {
 };
 
 export async function followUser(username) {
-    const response = await api.post(`/follow/${username}`);
+    await api.post(`/follow/${username}`);
+}
+
+export async function getRequestedUsers() {
+    const response = await api.get('/requested');
     return response.data;
+}
+
+export async function acceptRequest(username) {
+    await api.post(`/status/accept/${username}`);
+}
+
+export async function rejectRequest(username) {
+    await api.post(`/status/reject/${username}`);
 }
 
 export default api;
