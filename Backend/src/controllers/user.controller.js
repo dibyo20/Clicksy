@@ -112,6 +112,22 @@ async function following(req, res) {
     return res.status(200).json(following);
 }
 
+async function notFollowing(req, res) {
+    try {
+        const user = req.user.username;
+        const following = await followModel.find({ follower: user, status: "accepted" });
+        const followingUsers = following.map((follow) => follow.followee);
+
+        followingUsers.push(user);
+
+        const notFollowing = await userModel.find({ username: { $nin: followingUsers } });
+
+        return res.status(200).json({ users: notFollowing });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     getUserProfile,
     followUser,
@@ -121,4 +137,5 @@ module.exports = {
     rejectUser,
     followers,
     following,
+    notFollowing,
 };
