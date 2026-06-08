@@ -15,8 +15,8 @@ $font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
