@@ -4,12 +4,12 @@ import { useUser } from "../hooks/useUser.js";
 
 const UsersModal = ({ isOpen, onClose }) => {
   const { loading, suggestedUsers, handleFollowUser } = useUser();
-  const [userStatus, setUserStatus] = useState("follow");
+  const [userStatus, setUserStatus] = useState({});
   if (!isOpen) return null;
 
-  const handleFollow = (username) => {
-    handleFollowUser(username);
-    setUserStatus("Requested");
+  const handleFollow = async (username) => {
+    await handleFollowUser(username);
+    setUserStatus((prev) => ({ ...prev, [username]: "Requested" }));
   };
 
   return (
@@ -43,10 +43,11 @@ const UsersModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
               <button
-                className={`user-card-btn ${userStatus === "Requested" ? "requested" : "follow"}`}
+                className={`user-card-btn ${userStatus[user.username] === "Requested" ? "requested" : "follow"}`}
                 onClick={() => handleFollow(user.username)}
+                disabled={userStatus[user.username] === "Requested"}
               >
-                {userStatus}
+                {userStatus[user.username] || "follow"}
               </button>
             </div>
           ))}

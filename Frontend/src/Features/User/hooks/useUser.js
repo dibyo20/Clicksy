@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../user.context.js";
+import { UserContext } from "../user.context.jsx";
 import { getNotFollowingUsers, followUser } from "../services/User.api";
 
 export const useUser = () => {
