@@ -32,7 +32,7 @@ userRouter.post("/unfollow/:username", identifyUser, unfollowUser);
  * Protected: Yes
  * 
  */
-userRouter.post("/status", identifyUser, requestedUsers);
+userRouter.post("/requested", identifyUser, requestedUsers);
 
 /**
  * POST /api/users/status/accept/:username
