@@ -16,7 +16,7 @@ const UsersModal = ({ isOpen, onClose }) => {
     <div className="users-modal-overlay" onClick={onClose}>
       <div className="users-modal-window" onClick={(e) => e.stopPropagation()}>
         <header className="users-modal-header">
-          <h2 className="users-modal-title">Suggested Users</h2>
+          <h2 className="users-modal-title">Suggested for you</h2>
           <button
             className="users-modal-close"
             onClick={onClose}
@@ -38,8 +38,8 @@ const UsersModal = ({ isOpen, onClose }) => {
                   className="user-card-avatar"
                 />
                 <div className="user-card-details">
-                  <span className="user-card-name">{user.username}</span>
-                  <span className="user-card-subtitle">Suggested for you</span>
+                  <span className="user-card-name">{user.fullname}</span>
+                  <span className="user-card-subtitle">{user.username}</span>
                 </div>
               </div>
               <button
