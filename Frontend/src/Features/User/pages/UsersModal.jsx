@@ -30,7 +30,7 @@ const UsersModal = ({ isOpen, onClose }) => {
 
         <div className="users-modal-content">
           {suggestedUsers.map((user) => (
-            <div key={user.id} className="user-card-item">
+            <div key={user._id} className="user-card-item">
               <div className="user-card-info">
                 <img
                   src={user.profileImage}

@@ -5,14 +5,17 @@ import { useUser } from "../hooks/useUser.js";
 const NotificationsModal = ({ isOpen, onClose }) => {
   const { loading, requestedUsers, handleAcceptRequest, handleRejectRequest } =
     useUser();
+  const [requestStatus, setRequestStatus] = useState({});
   if (!isOpen) return null;
 
-  const handleAcceptClick = async (username) => {
+  const handleAcceptClick = async (username, id) => {
     await handleAcceptRequest(username);
+    setRequestStatus((prev) => ({ ...prev, [id]: "accepted" }));
   };
 
-  const handleRejectClick = async (username) => {
+  const handleRejectClick = async (username, id) => {
     await handleRejectRequest(username);
+    setRequestStatus((prev) => ({ ...prev, [id]: "rejected" }));
   };
 
   return (
@@ -35,7 +38,7 @@ const NotificationsModal = ({ isOpen, onClose }) => {
         </header>
 
         <div className="notifications-modal-content">
-          {!requestedUsers ? (
+          {!requestedUsers || requestedUsers.length === 0 ? (
             <div className="no-requests-container">
               <span className="no-requests-icon">🔔</span>
               <p className="no-requests-text">No pending follow requests</p>
@@ -59,18 +62,34 @@ const NotificationsModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
                 <div className="request-card-actions">
-                  <button
-                    className="request-card-btn accept"
-                    onClick={() => handleAcceptClick(request.follower)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="request-card-btn reject"
-                    onClick={() => handleRejectClick(request.follower)}
-                  >
-                    Reject
-                  </button>
+                  {(requestStatus[request._id] || request.status) !==
+                  "pending" ? (
+                    <button
+                      className={`request-card-btn ${(requestStatus[request._id] || request.status) === "accepted" ? "accept" : "reject"}`}
+                      disabled
+                    >
+                      {(requestStatus[request._id] || request.status) === "accepted" ? "Accepted" : "Rejected"}
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        className="request-card-btn accept"
+                        onClick={() =>
+                          handleAcceptClick(request.follower, request._id)
+                        }
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="request-card-btn reject"
+                        onClick={() =>
+                          handleRejectClick(request.follower, request._id)
+                        }
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             ))
