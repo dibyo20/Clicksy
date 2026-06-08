@@ -115,7 +115,7 @@ async function following(req, res) {
 async function notFollowing(req, res) {
     try {
         const user = req.user.username;
-        const following = await followModel.find({ follower: user, status: "accepted" });
+        const following = await followModel.find({ follower: user, status: { $in: ["accepted", "pending"] } });
         const followingUsers = following.map((follow) => follow.followee);
 
         followingUsers.push(user);
