@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileHeader = ({ loading, profile, followingCount, followersCount, userPostsCount, onViewFollowers, onViewFollowing }) => {
+const ProfileHeader = ({ loading, profile, followingCount, followersCount, userPostsCount, onViewFollowers, onViewFollowing, onEditProfile }) => {
   const { fullname, username, profileImage, bio } = profile || {};
 
   return (
@@ -54,7 +54,7 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
         <div className="posts-tab-active">
           <span>POSTS</span>
         </div>
-        <button className="edit-profile-btn">
+        <button className="edit-profile-btn" onClick={onEditProfile}>
           <svg
             viewBox="0 0 24 24"
             width="14"

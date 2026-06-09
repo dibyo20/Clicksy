@@ -491,7 +491,7 @@ $font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
           }
 
           // Following Mode (Dark Matte Slate Button)
-          &.btn-following {
+          &.btn-following, &.btn-remove, &.btn-requested {
             background-color: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: $text-primary;
@@ -524,5 +524,217 @@ $font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
+  }
+}
+
+// Edit Profile Modal Overlay
+.edit-profile-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+// Edit Profile Modal Card
+.edit-profile-modal {
+  background: rgba(18, 18, 22, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  width: 480px;
+  max-width: 90vw;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  color: $text-primary;
+  font-family: $font-family;
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .edit-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      color: $text-primary;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: $text-muted;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: $text-primary;
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+
+  .edit-profile-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+
+      &.flex-1 {
+        flex: 1;
+      }
+    }
+
+    .form-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: $text-muted;
+      letter-spacing: 0.08em;
+    }
+
+    // Cover Banner Upload Area
+    .banner-upload-box {
+      border: 1.5px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.01);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: $color-accent;
+        
+        .upload-icon {
+          color: $color-accent;
+          transform: scale(1.05);
+        }
+      }
+
+      .upload-icon {
+        color: $text-muted;
+        transition: all 0.2s ease;
+      }
+
+      .upload-text {
+        font-size: 0.75rem;
+        color: $text-muted;
+        font-weight: 500;
+      }
+    }
+
+    // Profile Pic Upload Box with Overlay
+    .profile-pic-upload-box {
+      overflow: hidden;
+      height: 160px !important; // taller height for main picture upload area
+      position: relative;
+
+      .upload-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-sizing: border-box;
+        
+        &.has-image {
+          background: rgba(0, 0, 0, 0.55);
+          opacity: 0;
+          backdrop-filter: blur(4px);
+          
+          .upload-icon, .upload-text {
+            color: #fff;
+          }
+        }
+      }
+      
+      &:hover {
+        .upload-overlay.has-image {
+          opacity: 1;
+        }
+      }
+    }
+
+    .form-input, .form-textarea {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      color: $text-primary;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-family: $font-family;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: $text-muted;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $color-accent;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 10px rgba(0, 112, 243, 0.15);
+      }
+    }
+
+    .form-textarea {
+      resize: none;
+    }
+
+    .save-btn {
+      width: 100%;
+      background: $color-accent;
+      border: none;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 10px;
+
+      &:hover {
+        background: $color-accent-hover;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
   }
 }

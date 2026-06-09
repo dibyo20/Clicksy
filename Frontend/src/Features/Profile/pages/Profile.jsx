@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProfileHeader from "../components/ProfileHeader.jsx";
 import PostGrid from "../components/PostGrid.jsx";
 import ConnectionsModal from "../components/ConnectionsModal.jsx";
+import EditProfileModal from "../components/EditProfileModal.jsx";
 import { useProfile } from "../hooks/useProfile.js";
 import { usePost } from "../../Post/hooks/usePost.js";
 import "../styles/Profile.scss";
@@ -11,6 +12,7 @@ const Profile = () => {
   const { userPosts, userPostsCount } = usePost();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("followers"); // 'followers' or 'following'
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleViewFollowers = () => {
     setModalType("followers");
@@ -33,6 +35,7 @@ const Profile = () => {
           userPostsCount={userPostsCount}
           onViewFollowers={handleViewFollowers}
           onViewFollowing={handleViewFollowing}
+          onEditProfile={() => setIsEditModalOpen(true)}
         />
         <PostGrid posts={userPosts} />
       </div>
@@ -44,6 +47,12 @@ const Profile = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         type={modalType}
+      />
+
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        profile={profile}
       />
     </main>
   );

@@ -1,58 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useProfile } from "../hooks/useProfile.js";
+import { useUser } from "../../User/hooks/useUser.js";
 
 const ConnectionsModal = ({ isOpen, onClose, type, followers, following }) => {
-  // Default mock data matching the user's screenshots
-  const defaultFollowers = [
-    {
-      id: "f1",
-      username: "dibyo_banerjee__",
-      fullname: "Dibyo Banerjee",
-      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&auto=format&fit=crop&q=80",
-      isFollowing: false,
-      isCurrentUser: true // Can't follow yourself, shows dark outline Follow button
-    },
-    {
-      id: "f2",
-      username: "_ambidextrous_dev",
-      fullname: "Sabyasachi",
-      avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=80&auto=format&fit=crop&q=80",
-      isFollowing: false
-    },
-    {
-      id: "f3",
-      username: "strange__187",
-      fullname: "Mainak Majumder",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80",
-      isFollowing: false
-    }
-  ];
+  const { setFollowers, setFollowersCount, setFollowingCount, profile } = useProfile();
+  const { handleFollowUser, handleUnfollowUser } = useUser();
+  const [usersList, setUsersList] = useState([]);
 
-  const defaultFollowing = [
-    {
-      id: "fg1",
-      username: "ioutstanding_oishani",
-      fullname: "Oishani Chakraborty",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80",
-      isFollowing: true
+  useEffect(() => {
+    if (type === "followers") {
+      setUsersList(followers || []);
+    } else {
+      const followingList = (following || []).map((user) => ({
+        ...user,
+        isFollowing: true,
+      }));
+      setUsersList(followingList);
     }
-  ];
-
-  // Local state to manage users list and allow interactive toggling
-  const [usersList, setUsersList] = useState(() => 
-    type === "followers" ? defaultFollowers : defaultFollowing
-  );
+  }, [type, followers, following]);
 
   if (!isOpen) return null;
 
-  const handleFollowToggle = (userId) => {
-    setUsersList((prevList) =>
-      prevList.map((u) => {
-        if (u.id === userId && !u.isCurrentUser) {
-          return { ...u, isFollowing: !u.isFollowing };
-        }
-        return u;
-      })
-    );
+  const handleRemoveFollower = (targetUsername) => {
+    // 1. Remove from local list state
+    setUsersList((prevList) => prevList.filter((u) => u.username !== targetUsername));
+    // 2. Remove from profile context followers list
+    setFollowers((prev) => (prev ? prev.filter((u) => u.username !== targetUsername) : []));
+    // 3. Decrement followers count in profile context
+    setFollowersCount((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleFollowingToggle = async (targetUser) => {
+    const currentState = targetUser.isFollowing; // true (following), false (not following), "requested"
+
+    if (currentState === true) {
+      // Transition: Following -> Follow
+      setUsersList((prevList) =>
+        prevList.map((u) =>
+          u.username === targetUser.username ? { ...u, isFollowing: false } : u
+        )
+      );
+      setFollowingCount((prev) => Math.max(0, prev - 1));
+      try {
+        await handleUnfollowUser(targetUser.username);
+      } catch (error) {
+        // Rollback
+        setUsersList((prevList) =>
+          prevList.map((u) =>
+            u.username === targetUser.username ? { ...u, isFollowing: true } : u
+          )
+        );
+        setFollowingCount((prev) => prev + 1);
+        console.error("Failed to unfollow user:", error);
+      }
+    } else if (currentState === false) {
+      // Transition: Follow -> Requested (Pending status)
+      setUsersList((prevList) =>
+        prevList.map((u) =>
+          u.username === targetUser.username ? { ...u, isFollowing: "requested" } : u
+        )
+      );
+      try {
+        await handleFollowUser(targetUser.username);
+      } catch (error) {
+        // Rollback
+        setUsersList((prevList) =>
+          prevList.map((u) =>
+            u.username === targetUser.username ? { ...u, isFollowing: false } : u
+          )
+        );
+        console.error("Failed to follow user:", error);
+      }
+    } else if (currentState === "requested") {
+      // Transition: Requested -> Follow (Cancel pending follow request)
+      setUsersList((prevList) =>
+        prevList.map((u) =>
+          u.username === targetUser.username ? { ...u, isFollowing: false } : u
+        )
+      );
+      try {
+        await handleUnfollowUser(targetUser.username);
+      } catch (error) {
+        // Rollback
+        setUsersList((prevList) =>
+          prevList.map((u) =>
+            u.username === targetUser.username ? { ...u, isFollowing: "requested" } : u
+          )
+        );
+        console.error("Failed to cancel request:", error);
+      }
+    }
   };
 
   return (
@@ -86,45 +123,62 @@ const ConnectionsModal = ({ isOpen, onClose, type, followers, following }) => {
             <div className="connections-empty">No users found.</div>
           ) : (
             <div className="connections-list">
-              {usersList.map((userItem) => (
-                <div key={userItem.id} className="connection-row">
-                  {/* User Avatar */}
-                  <img
-                    src={userItem.avatar}
-                    alt={userItem.fullname}
-                    className="connection-avatar"
-                  />
+              {usersList.map((userItem) => {
+                const isCurrentUser = profile && userItem.username === profile.username;
+                return (
+                  <div key={userItem._id || userItem.id} className="connection-row">
+                    {/* User Avatar */}
+                    <img
+                      src={userItem.profileImage || userItem.avatar || "https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"}
+                      alt={userItem.fullname}
+                      className="connection-avatar"
+                    />
 
-                  {/* User Names */}
-                  <div className="connection-info">
-                    <span className="connection-username">{userItem.username}</span>
-                    <span className="connection-fullname">{userItem.fullname}</span>
-                  </div>
+                    {/* User Names */}
+                    <div className="connection-info">
+                      <span className="connection-username">{userItem.username}</span>
+                      <span className="connection-fullname">{userItem.fullname}</span>
+                    </div>
 
-                  {/* Follow/Following Action Button */}
-                  <div className="connection-action">
-                    {userItem.isCurrentUser ? (
-                      <button className="conn-btn btn-self-follow">
-                        Follow
-                      </button>
-                    ) : userItem.isFollowing ? (
-                      <button
-                        className="conn-btn btn-following"
-                        onClick={() => handleFollowToggle(userItem.id)}
-                      >
-                        Following
-                      </button>
-                    ) : (
-                      <button
-                        className="conn-btn btn-follow"
-                        onClick={() => handleFollowToggle(userItem.id)}
-                      >
-                        Follow
-                      </button>
-                    )}
+                    {/* Action Button */}
+                    <div className="connection-action">
+                      {type === "followers" ? (
+                        <button
+                          className="conn-btn btn-remove"
+                          onClick={() => handleRemoveFollower(userItem.username)}
+                        >
+                          Remove
+                        </button>
+                      ) : isCurrentUser ? (
+                        <button className="conn-btn btn-self-follow">
+                          Follow
+                        </button>
+                      ) : userItem.isFollowing === true ? (
+                        <button
+                          className="conn-btn btn-following"
+                          onClick={() => handleFollowingToggle(userItem)}
+                        >
+                          Following
+                        </button>
+                      ) : userItem.isFollowing === "requested" ? (
+                        <button
+                          className="conn-btn btn-requested"
+                          onClick={() => handleFollowingToggle(userItem)}
+                        >
+                          Requested
+                        </button>
+                      ) : (
+                        <button
+                          className="conn-btn btn-follow"
+                          onClick={() => handleFollowingToggle(userItem)}
+                        >
+                          Follow
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

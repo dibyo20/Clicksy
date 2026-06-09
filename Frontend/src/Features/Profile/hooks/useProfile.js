@@ -49,8 +49,12 @@ export const useProfile = () => {
         profile,
         handleGetProfile,
         following,
+        setFollowing,
         followers,
+        setFollowers,
         followingCount,
+        setFollowingCount,
         followersCount,
+        setFollowersCount,
     }
 }

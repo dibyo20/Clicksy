@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../user.context.jsx";
-import { getNotFollowingUsers, followUser, getRequestedUsers, acceptRequest, rejectRequest } from "../services/User.api";
+import { getNotFollowingUsers, followUser, unfollowUser, getRequestedUsers, acceptRequest, rejectRequest } from "../services/User.api";
 
 export const useUser = () => {
     const context = useContext(UserContext);
@@ -20,6 +20,15 @@ export const useUser = () => {
         setLoading(true);
         try {
             await followUser(username);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleUnfollowUser = async (username) => {
+        setLoading(true);
+        try {
+            await unfollowUser(username);
         } finally {
             setLoading(false);
         }
@@ -63,6 +72,7 @@ export const useUser = () => {
         loading,
         suggestedUsers,
         handleFollowUser,
+        handleUnfollowUser,
         requestedUsers,
         handleAcceptRequest,
         handleRejectRequest,

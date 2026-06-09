@@ -14,6 +14,10 @@ export async function followUser(username) {
     await api.post(`/follow/${username}`);
 }
 
+export async function unfollowUser(username) {
+    await api.post(`/unfollow/${username}`);
+}
+
 export async function getRequestedUsers() {
     const response = await api.get('/requested');
     return response.data;
