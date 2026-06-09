@@ -103,13 +103,21 @@ async function rejectUser(req, res) {
 async function followers(req, res) {
     const user = req.user.username;
     const followers = await followModel.find({ followee: user, status: "accepted" });
-    return res.status(200).json(followers);
+    const countFollowers = followers.length;
+    return res.status(200).json({
+        followers,
+        countFollowers
+    });
 }
 
 async function following(req, res) {
     const user = req.user.username;
     const following = await followModel.find({ follower: user, status: "accepted" });
-    return res.status(200).json(following);
+    const countFollowing = following.length;
+    return res.status(200).json({
+        following,
+        countFollowing
+    });
 }
 
 async function notFollowing(req, res) {
