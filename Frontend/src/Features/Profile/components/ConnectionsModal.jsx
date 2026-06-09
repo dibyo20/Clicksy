@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ConnectionsModal = ({ isOpen, onClose, type }) => {
+const ConnectionsModal = ({ isOpen, onClose, type, followers, following }) => {
   // Default mock data matching the user's screenshots
   const defaultFollowers = [
     {
