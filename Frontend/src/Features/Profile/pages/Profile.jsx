@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import ProfileHeader from "../components/ProfileHeader.jsx";
 import PostGrid from "../components/PostGrid.jsx";
 import ConnectionsModal from "../components/ConnectionsModal.jsx";
-import { useAuth } from "../../Auth/hooks/useAuth.js";
+import { useProfile } from "../hooks/useProfile.js";
 import "../styles/Profile.scss";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { loading, profile } = useProfile();
+  // {console.log(profile.fullname)}
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("followers"); // 'followers' or 'following'
 
@@ -24,11 +25,12 @@ const Profile = () => {
     <main className="main-content profile-main">
       <div className="profile-container">
         <ProfileHeader
-          user={user}
+          loading={loading}
+          profile={profile}
           onViewFollowers={handleViewFollowers}
           onViewFollowing={handleViewFollowing}
         />
-        <PostGrid posts={user?.posts} />
+        <PostGrid posts={profile?.posts} />
       </div>
 
       <ConnectionsModal
