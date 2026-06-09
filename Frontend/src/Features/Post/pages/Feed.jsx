@@ -8,6 +8,7 @@ import SideBar from "../components/SideBar.jsx";
 import ComingSoon from "../components/ComingSoon.jsx";
 import UsersModal from "../../User/pages/UsersModal.jsx";
 import NotificationsModal from "../../User/pages/NotificationsModal.jsx";
+import Profile from "../../Profile/pages/Profile.jsx";
 import "../styles/Feed.scss";
 import { useAuth } from "../../Auth/hooks/useAuth.js";
 
@@ -183,7 +184,7 @@ const Feed = () => {
         {activeTab === "Reels" && <ComingSoon title="Reels" />}
         {activeTab === "Messages" && <ComingSoon title="Messages" />}
         {activeTab === "Notifications" && <Post />} {/* Keep post/feed in background */}
-        {activeTab === "Profile" && <ComingSoon title="Profile" />}
+        {activeTab === "Profile" && <Profile />}
       </div>
 
       <MobileBottomNav
