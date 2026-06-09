@@ -8,11 +8,11 @@ export const useProfile = () => {
 
     const handleGetProfile = async () => {
         setLoading(true);
-        try{
+        try {
             const data = await getProfile();
             setProfile(data);
             console.log(profile);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }

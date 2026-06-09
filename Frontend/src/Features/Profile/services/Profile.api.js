@@ -11,3 +11,5 @@ export async function getProfile() {
     return response.data.user;
 }
 
+export default api;
+
