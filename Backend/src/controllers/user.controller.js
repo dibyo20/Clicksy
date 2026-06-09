@@ -108,7 +108,9 @@ async function followers(req, res) {
     const countFollowers = followers.length;
     return res.status(200).json({
         followers,
-        countFollowers
+        countFollowers,
+        followerUsernames,
+        followRecords,
     });
 }
 
@@ -120,7 +122,9 @@ async function following(req, res) {
     const countFollowing = following.length;
     return res.status(200).json({
         following,
-        countFollowing
+        countFollowing,
+        followingUsernames,
+        followRecords,
     });
 }
 
