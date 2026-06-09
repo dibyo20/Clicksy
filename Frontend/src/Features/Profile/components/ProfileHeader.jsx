@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileHeader = ({ loading, profile, onViewFollowers, onViewFollowing }) => {
+const ProfileHeader = ({ loading, profile,  userPostsCount, onViewFollowers, onViewFollowing }) => {
   const { fullname, username, profileImage, bio } = profile || {};
 
   return (
@@ -36,7 +36,7 @@ const ProfileHeader = ({ loading, profile, onViewFollowers, onViewFollowing }) =
       {/* Stats Row */}
       <div className="profile-stats">
         <div className="stat-item">
-          <span className="stat-number">postsCount</span>
+          <span className="stat-number">{userPostsCount}</span>
           <span className="stat-label">POSTS</span>
         </div>
         <div className="stat-item clickable" onClick={onViewFollowers}>

@@ -29,4 +29,9 @@ export async function unlikePost(postId) {
     return response.data;
 }
 
+export async function getUserPosts(){
+    const response = await api.get('/');
+    return response.data;
+}
+
 export default api;

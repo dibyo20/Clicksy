@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../post.context.jsx";
-import { getFeed, createPost, likePost, unlikePost } from "../services/Post.api.js"
+import { getFeed, createPost, likePost, unlikePost, getUserPosts } from "../services/Post.api.js"
 
 export const usePost = () => {
     const context = useContext(PostContext);
-    const { loading, setLoading, feed, setFeed } = context;
+    const { loading, setLoading, feed, setFeed, userPosts, setUserPosts, userPostsCount, setUserPostsCount } = context;
 
     const handleGetFeed = async () => {
         setLoading(true);
@@ -46,8 +46,22 @@ export const usePost = () => {
         }
     }
 
+    const handleUserPosts = async () => {
+        setLoading(true);
+        try {
+            const data = await getUserPosts();
+            setUserPosts(data.posts);
+            // console.log(data.posts);
+            setUserPostsCount(data.countPosts);
+            // console.log(data.countPosts);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         handleGetFeed();
+        handleUserPosts();
     }, []);
 
     return {
@@ -56,6 +70,8 @@ export const usePost = () => {
         handleGetFeed,
         handleCreatePost,
         handleLike,
-        handleUnlike
+        handleUnlike,
+        userPosts,
+        userPostsCount,
     }
 }

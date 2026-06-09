@@ -3,11 +3,12 @@ import ProfileHeader from "../components/ProfileHeader.jsx";
 import PostGrid from "../components/PostGrid.jsx";
 import ConnectionsModal from "../components/ConnectionsModal.jsx";
 import { useProfile } from "../hooks/useProfile.js";
+import { usePost } from "../../Post/hooks/usePost.js";
 import "../styles/Profile.scss";
 
 const Profile = () => {
   const { loading, profile } = useProfile();
-  // {console.log(profile.fullname)}
+  const { userPosts, userPostsCount } = usePost();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("followers"); // 'followers' or 'following'
 
@@ -27,10 +28,11 @@ const Profile = () => {
         <ProfileHeader
           loading={loading}
           profile={profile}
+          userPostsCount={userPostsCount}
           onViewFollowers={handleViewFollowers}
           onViewFollowing={handleViewFollowing}
         />
-        <PostGrid posts={profile?.posts} />
+        <PostGrid posts={userPosts} />
       </div>
 
       <ConnectionsModal

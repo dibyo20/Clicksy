@@ -11,7 +11,7 @@ export const useProfile = () => {
         try {
             const data = await getProfile();
             setProfile(data);
-            console.log(profile);
+            // console.log(profile);
         } finally {
             setLoading(false);
         }
