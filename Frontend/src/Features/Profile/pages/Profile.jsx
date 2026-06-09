@@ -7,7 +7,7 @@ import { usePost } from "../../Post/hooks/usePost.js";
 import "../styles/Profile.scss";
 
 const Profile = () => {
-  const { loading, profile } = useProfile();
+  const { loading, profile, followingCount, followersCount } = useProfile();
   const { userPosts, userPostsCount } = usePost();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("followers"); // 'followers' or 'following'
@@ -28,6 +28,8 @@ const Profile = () => {
         <ProfileHeader
           loading={loading}
           profile={profile}
+          followingCount={followingCount}
+          followersCount={followersCount}
           userPostsCount={userPostsCount}
           onViewFollowers={handleViewFollowers}
           onViewFollowing={handleViewFollowing}

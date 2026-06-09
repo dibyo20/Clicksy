@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileHeader = ({ loading, profile,  userPostsCount, onViewFollowers, onViewFollowing }) => {
+const ProfileHeader = ({ loading, profile, followingCount, followersCount, userPostsCount, onViewFollowers, onViewFollowing }) => {
   const { fullname, username, profileImage, bio } = profile || {};
 
   return (
@@ -40,11 +40,11 @@ const ProfileHeader = ({ loading, profile,  userPostsCount, onViewFollowers, onV
           <span className="stat-label">POSTS</span>
         </div>
         <div className="stat-item clickable" onClick={onViewFollowers}>
-          <span className="stat-number">followersCount</span>
+          <span className="stat-number">{followersCount}</span>
           <span className="stat-label">FOLLOWERS</span>
         </div>
         <div className="stat-item clickable" onClick={onViewFollowing}>
-          <span className="stat-number">followingCount</span>
+          <span className="stat-number">{followingCount}</span>
           <span className="stat-label">FOLLOWING</span>
         </div>
       </div>

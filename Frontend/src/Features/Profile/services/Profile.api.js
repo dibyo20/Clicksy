@@ -11,5 +11,15 @@ export async function getProfile() {
     return response.data.user;
 }
 
+export async function getFollowing(){
+    const response = await api.get("/following");
+    return response.data;
+}
+
+export async function getFollowers(){
+    const response = await api.get("/followers");
+    return response.data;
+}
+
 export default api;
 
