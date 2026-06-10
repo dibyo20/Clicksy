@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOpen, onClose, profile }) => {
+const EditProfileModal = ({ handleProfileData, isOpen, onClose, profile }) => {
   const [fullname, setFullname] = useState("");
   const [bio, setBio] = useState("");
 
-  // Synchronize state with profile data when modal opens or profile changes
   useEffect(() => {
     if (isOpen && profile) {
       setFullname(profile.fullname || "");
@@ -15,14 +14,13 @@ const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOp
   if (!isOpen) return null;
 
   const handleSave = () => {
-    
+    handleProfileData(fullname, bio);
     onClose();
   };
 
   return (
     <div className="modal-overlay edit-profile-overlay" onClick={onClose}>
       <div className="edit-profile-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Modal Header */}
         <div className="edit-profile-header">
           <h3 className="modal-title">Edit Profile</h3>
           <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
@@ -42,10 +40,8 @@ const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOp
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="edit-profile-body">
 
-          {/* Display Name Input */}
           <div className="form-group">
             <label className="form-label">DISPLAY NAME</label>
             <input
@@ -57,7 +53,6 @@ const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOp
             />
           </div>
 
-          {/* Bio Input */}
           <div className="form-group">
             <label className="form-label">BIO</label>
             <textarea
@@ -69,7 +64,6 @@ const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOp
             />
           </div>
 
-          {/* Save Button */}
           <button className="save-btn" onClick={handleSave}>
             Save Changes
           </button>

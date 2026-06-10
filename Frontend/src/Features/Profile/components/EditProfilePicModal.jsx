@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-const EditProfilePicModal = ({ isOpen, onClose, profile }) => {
+const EditProfilePicModal = ({ handleProfilePic, isOpen, onClose, profile }) => {
   const [profilePic, setProfilePic] = useState("");
   const [profilePicFile, setProfilePicFile] = useState(null);
 
-  // Synchronize state with profile data when modal opens or profile changes
   useEffect(() => {
     if (isOpen && profile) {
       setProfilePic(profile.profileImage || "");
@@ -24,14 +23,15 @@ const EditProfilePicModal = ({ isOpen, onClose, profile }) => {
 
   const handleSave = () => {
     console.log("Saving changes:", { profilePicFile });
-    // The user will integrate their four-layer architecture here later.
+    if (profilePicFile) {
+      handleProfilePic(profilePicFile);
+    }
     onClose();
   };
 
   return (
     <div className="modal-overlay edit-profile-overlay" onClick={onClose}>
       <div className="edit-profile-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Modal Header */}
         <div className="edit-profile-header">
           <h3 className="modal-title">Update Profile Picture</h3>
           <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
@@ -51,9 +51,7 @@ const EditProfilePicModal = ({ isOpen, onClose, profile }) => {
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="edit-profile-body">
-          {/* Change Profile Picture */}
           <div className="form-group">
             <label className="form-label">PROFILE PICTURE</label>
             <div
@@ -66,7 +64,7 @@ const EditProfilePicModal = ({ isOpen, onClose, profile }) => {
                 position: "relative",
               }}
             >
-              {/* Blur/dark overlay for visual contrast when hover/image exists */}
+
               <div className={`upload-overlay ${profilePic ? "has-image" : ""}`}>
                 <svg
                   viewBox="0 0 24 24"
@@ -94,7 +92,6 @@ const EditProfilePicModal = ({ isOpen, onClose, profile }) => {
             />
           </div>
 
-          {/* Save Button */}
           <button className="save-btn" onClick={handleSave}>
             Save Changes
           </button>

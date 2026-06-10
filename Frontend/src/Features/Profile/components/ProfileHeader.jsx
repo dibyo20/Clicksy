@@ -5,7 +5,6 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
 
   return (
     <div className="profile-header">
-      {/* Avatar Container with glowing border and online dot */}
       <div className="profile-avatar-wrapper">
         <div className="avatar-ring">
           <img src={profileImage} alt={fullname} className="profile-avatar-img" />
@@ -27,12 +26,10 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
         </button>
       </div>
 
-      {/* User Details */}
       <div className="profile-details">
         <h2 className="profile-name">
           {fullname}
           <span className="badges">
-            {/* Verified Badge */}
             <svg
               className="badge-verified"
               viewBox="0 0 24 24"
@@ -48,7 +45,6 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
         <p className="profile-bio">{bio}</p>
       </div>
 
-      {/* Stats Row */}
       <div className="profile-stats">
         <div className="stat-item">
           <span className="stat-number">{userPostsCount}</span>
@@ -64,7 +60,6 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
         </div>
       </div>
 
-      {/* Tabs Row + Edit Button */}
       <div className="profile-tabs-row">
         <div className="posts-tab-active">
           <span>POSTS</span>

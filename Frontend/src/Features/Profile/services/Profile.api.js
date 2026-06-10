@@ -7,7 +7,6 @@ const api = axios.create({
 
 export async function getProfile() {
     const response = await api.get("/profile");
-    // console.log(response.data.user);
     return response.data.user;
 }
 
@@ -24,6 +23,17 @@ export async function getFollowers() {
 export async function updateProfile(fullname, bio) {
     const response = await api.patch("/updateprofile", { fullname, bio });
     console.log("ProfileData :", response.data);
+    return response.data;
+}
+
+export async function updateProfilePicture(profileImageFile) {
+    const formData = new FormData();
+    formData.append("profileImage", profileImageFile);
+    const response = await api.patch("/updateprofilepicture", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
     return response.data;
 }
 

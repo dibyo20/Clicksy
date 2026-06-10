@@ -9,10 +9,10 @@ import { usePost } from "../../Post/hooks/usePost.js";
 import "../styles/Profile.scss";
 
 const Profile = () => {
-  const { loading, profile, followingCount, followersCount, following, followers, handleProfileData, profilePic, setProfileData} = useProfile();
+  const { loading, profile, followingCount, followersCount, following, followers, handleProfileData, profilePic, setProfileData, handleProfilePic } = useProfile();
   const { userPosts, userPostsCount } = usePost();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("followers"); // 'followers' or 'following'
+  const [modalType, setModalType] = useState("followers"); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isEditPicModalOpen, setIsEditPicModalOpen] = useState(false);
 
@@ -54,7 +54,6 @@ const Profile = () => {
 
       <EditProfileModal
         handleProfileData={handleProfileData}
-        profileData = {profileData}
         setProfileData = {setProfileData}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
@@ -62,6 +61,7 @@ const Profile = () => {
       />
 
       <EditProfilePicModal
+        handleProfilePic={handleProfilePic}
         isOpen={isEditPicModalOpen}
         onClose={() => setIsEditPicModalOpen(false)}
         profile={profile}

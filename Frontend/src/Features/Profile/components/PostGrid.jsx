@@ -14,7 +14,6 @@ const PostGrid = ({ posts }) => {
           />
           <div className="post-overlay">
             <div className="overlay-stats">
-              {/* Overlay stats showing likes/comments */}
               <span>
                 <svg
                   viewBox="0 0 24 24"
