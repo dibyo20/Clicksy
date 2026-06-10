@@ -83,6 +83,44 @@ $font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sa
       border: 3px solid $bg-main; // Black gap outline
       box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
     }
+
+    .profile-camera-btn {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, $color-accent, #00d2ff); // Clicksy gradient theme
+      border: 3px solid $bg-main; // Bold black gap outline
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 112, 243, 0.35); // Sleek blue glow matching avatar ring
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #ffffff;
+      padding: 0;
+      z-index: 10; // make sure it stays above the ring
+      outline: none;
+
+      &:hover {
+        background: linear-gradient(135deg, $color-accent-hover, #00b4d8);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+        transform: scale(1.08);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+        stroke: #ffffff;
+        fill: none;
+      }
+    }
   }
 
   // Profile Details
