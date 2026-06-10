@@ -1,6 +1,8 @@
 const userRouter = require("express").Router();
-const { getUserProfile, updateProfile, followUser, unfollowUser, requestedUsers, acceptUser, rejectUser, followers, following, notFollowing } = require("../controllers/user.controller.js");
+const { getUserProfile, updateProfile, updateProfilePicture, followUser, unfollowUser, requestedUsers, acceptUser, rejectUser, followers, following, notFollowing } = require("../controllers/user.controller.js");
 const { identifyUser } = require("../middlewares/auth.middleware.js");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 /**
  * GET /api/users/profile
@@ -10,11 +12,18 @@ const { identifyUser } = require("../middlewares/auth.middleware.js");
 userRouter.get("/profile", identifyUser, getUserProfile);
 
 /**
- * PUT /api/users/updateprofile
+ * PATCH /api/users/updateprofile
  * Description: Update user profile
  * Protected: Yes
  */
 userRouter.patch("/updateprofile", identifyUser, updateProfile);
+
+/**
+ * PATCH /api/users/updateprofilepicture
+ * Description: Update user profile picture
+ * Protected: Yes
+ */
+userRouter.patch("/updateprofilepicture", identifyUser, upload.single("profileImage"), updateProfilePicture);
 
 /**
  * POST /api/users/follow/:username

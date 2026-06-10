@@ -1,5 +1,11 @@
 const followModel = require("../models/follow.model.js");
 const userModel = require("../models/user.model.js");
+const ImageKit = require("@imagekit/nodejs");
+const { toFile } = require("@imagekit/nodejs");
+
+const imagekit = new ImageKit({
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+});
 
 async function getUserProfile(req, res) {
     const user = await userModel.findOne({ username: req.user.username });
@@ -14,7 +20,19 @@ async function updateProfile(req, res) {
     res.status(200).json({
         user: user
     });
+}
 
+async function updateProfilePicture(req, res) {
+    const file = await imagekit.files.upload({
+        file: await toFile(Buffer.from(req.file.buffer), "file"),
+        fileName: "Test",
+        folder: "Clicksy",
+    });
+
+    await userModel.findOneAndUpdate({ username: req.user.username }, { profileImage: file.url });
+
+    const user = await userModel.findOne({ username: req.user.username });
+    res.status(200).json({ user });
 }
 
 async function followUser(req, res) {
@@ -158,6 +176,7 @@ async function notFollowing(req, res) {
 module.exports = {
     getUserProfile,
     updateProfile,
+    updateProfilePicture,
     followUser,
     unfollowUser,
     requestedUsers,
