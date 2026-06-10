@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const EditProfileModal = ({ isOpen, onClose, profile }) => {
+const EditProfileModal = ({ handleProfileData, profileData, setProfileData, isOpen, onClose, profile }) => {
   const [fullname, setFullname] = useState("");
   const [bio, setBio] = useState("");
 
@@ -15,8 +15,7 @@ const EditProfileModal = ({ isOpen, onClose, profile }) => {
   if (!isOpen) return null;
 
   const handleSave = () => {
-    console.log("Saving changes:", { fullname, bio });
-    // The user will integrate their four-layer architecture here later.
+    
     onClose();
   };
 

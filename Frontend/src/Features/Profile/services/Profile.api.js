@@ -11,13 +11,19 @@ export async function getProfile() {
     return response.data.user;
 }
 
-export async function getFollowing(){
+export async function getFollowing() {
     const response = await api.get("/following");
     return response.data;
 }
 
-export async function getFollowers(){
+export async function getFollowers() {
     const response = await api.get("/followers");
+    return response.data;
+}
+
+export async function updateProfile(fullname, bio) {
+    const response = await api.patch("/updateprofile", { fullname, bio });
+    console.log("ProfileData :", response.data);
     return response.data;
 }
 
