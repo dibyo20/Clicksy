@@ -6,6 +6,17 @@ async function getUserProfile(req, res) {
     res.status(200).json({ user });
 }
 
+async function updateProfile(req, res) {
+    const { fullname, bio } = req.body;
+    await userModel.findOneAndUpdate({ username: req.user.username }, { fullname: fullname, bio: bio });
+
+    const user = await userModel.findOne({ username: req.user.username });
+    res.status(200).json({
+        user: user
+    });
+
+}
+
 async function followUser(req, res) {
     const followerUsername = req.user.username;
     const followeeUsername = req.params.username;
@@ -146,6 +157,7 @@ async function notFollowing(req, res) {
 
 module.exports = {
     getUserProfile,
+    updateProfile,
     followUser,
     unfollowUser,
     requestedUsers,
