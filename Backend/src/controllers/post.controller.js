@@ -71,9 +71,13 @@ async function getPostDetails(req, res) {
         });
     }
 
+    const likes = await likeModel.find({ post: postId });
+    const countLikes = likes.length;
+
     return res.status(200).json({
         message: "Post details fetched successfully",
         post: post,
+        countLikes: countLikes,
     });
 }
 
