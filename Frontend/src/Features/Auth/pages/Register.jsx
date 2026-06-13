@@ -21,7 +21,6 @@ const Register = () => {
 
   return (
     <>
-      <Navbar />
       <div className="register-container">
         <div className="register-left">
           <div className="register-content">

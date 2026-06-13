@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap');
 
 // --- Design Tokens / Variables ---
-$bg-main: #020205;
-$bg-card: #090a0f;
-$border-color: rgba(255, 255, 255, 0.08);
-$border-glow-color: rgba(99, 102, 241, 0.3);
-$text-primary: #ffffff;
-$text-secondary: #94a3b8;
-$accent-blue: #3b82f6;
-$accent-indigo: #6366f1;
-$accent-glow: #818cf8;
+$bg-main: #09090b;
+$bg-card: rgba(18, 18, 22, 0.65);
+$border-color: rgba(255, 255, 255, 0.06);
+$border-glow-color: rgba(0, 112, 243, 0.3);
+$text-primary: #f4f4f5;
+$text-secondary: #a1a1aa;
+$accent-blue: #0070f3;
+$accent-indigo: #0066ff;
+$accent-glow: #00d2ff;
 $font-headings: 'Outfit', sans-serif;
 $font-body: 'Inter', sans-serif;
 
@@ -98,9 +98,9 @@ button {
   left: 0;
   width: 100%;
   z-index: 100;
-  backdrop-filter: blur(16px);
-  background-color: rgba(2, 2, 5, 0.7);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px) saturate(180%);
+  background-color: rgba(9, 9, 11, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 
   .header-container {
     max-width: 1200px;
@@ -123,20 +123,21 @@ button {
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
       object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(0, 112, 243, 0.35);
     }
 
     span {
       font-family: $font-headings;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       color: $text-primary;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 60%, #b2c5ff);
+      background: linear-gradient(135deg, #ffffff 50%, #7eb1ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -158,18 +159,18 @@ button {
     }
 
     .btn-primary {
-      background: $accent-indigo;
-      color: $text-primary;
+      background: $accent-blue;
+      color: #ffffff;
       font-size: 14px;
       font-weight: 600;
       padding: 10px 22px;
       border-radius: 99px;
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 20px rgba(0, 112, 243, 0.3);
 
       &:hover {
         transform: translateY(-2px);
-        background: lighten($accent-indigo, 5%);
-        box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+        background: lighten($accent-blue, 5%);
+        box-shadow: 0 0 25px rgba(0, 112, 243, 0.5);
       }
     }
   }
@@ -208,8 +209,8 @@ button {
     transition: all 0.3s;
 
     &:hover {
-      border-color: rgba(99, 102, 241, 0.4);
-      background: rgba(99, 102, 241, 0.05);
+      border-color: rgba(0, 112, 243, 0.4);
+      background: rgba(0, 112, 243, 0.05);
     }
 
     .pill-dot {
@@ -231,10 +232,10 @@ button {
     margin-bottom: 24px;
 
     .gradient-text {
-      background: linear-gradient(135deg, #d2dcff 0%, #7c9aff 50%, #6366f1 100%);
+      background: linear-gradient(135deg, #ffffff 30%, #4facfe 70%, #0070f3 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 80px rgba(99, 102, 241, 0.45);
+      text-shadow: 0 0 80px rgba(0, 112, 243, 0.4);
     }
   }
 
@@ -247,8 +248,8 @@ button {
   }
 
   .btn-cta {
-    background: #c3d4ff;
-    color: #05060c;
+    background: $accent-blue;
+    color: #ffffff;
     font-size: 15px;
     font-weight: 700;
     padding: 14px 28px;
@@ -256,12 +257,12 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 0 30px rgba(195, 212, 255, 0.25);
+    box-shadow: 0 0 30px rgba(0, 112, 243, 0.25);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 35px rgba(195, 212, 255, 0.45);
-      background: #dce5ff;
+      box-shadow: 0 0 35px rgba(0, 112, 243, 0.5);
+      background: lighten($accent-blue, 5%);
 
       .arrow-icon {
         transform: translateX(4px);

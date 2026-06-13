@@ -6,12 +6,10 @@ const LandingPage = () => {
 
   return (
     <div className="landing-wrapper">
-      {/* Background glow effects */}
       <div className="background-glow shape-1"></div>
       <div className="background-glow shape-2"></div>
       <div className="background-glow shape-3"></div>
 
-      {/* Navigation Header */}
       <header className="landing-header">
         <div className="header-container">
           <div className="brand-logo" onClick={() => navigate("/")}>
@@ -29,29 +27,24 @@ const LandingPage = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
       <main className="landing-main">
         <section className="hero-section">
           <div className="hero-container">
-            {/* Version Pill */}
             <div className="version-pill">
               <span className="pill-dot"></span>
               Introducing Clicksy 1.0
             </div>
 
-            {/* Glowing Hero Heading */}
             <h1 className="hero-title">
               Connecting the <br />
               <span className="gradient-text">Future of Social</span>
             </h1>
 
-            {/* Subtext description */}
             <p className="hero-description">
               Experience a high-octane social ecosystem designed for elite digital creators.
               Precision geometry meets fluid interaction in the most premium social platform ever built.
             </p>
 
-            {/* Call to Action Button */}
             <button className="btn-cta" onClick={() => navigate("/register")}>
               <span>Join the Future</span>
               <svg
@@ -72,16 +65,13 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* Capabilities Section */}
         <section className="capabilities-section">
           <div className="section-header">
             <h2>Elite Capabilities</h2>
             <p>Redefining how you express yourself in the digital age with performance-driven tools.</p>
           </div>
 
-          {/* Asymmetric Grid layout */}
           <div className="capabilities-grid">
-            {/* Card 1: Create Posts */}
             <div className="cap-card card-posts">
               <div className="card-header">
                 <div className="icon-box">
@@ -113,7 +103,6 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Card 2: Follow & Connect */}
             <div className="cap-card card-connect">
               <div className="card-header">
                 <div className="icon-box">
@@ -149,7 +138,6 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Card 3: Real-time Interactions */}
             <div className="cap-card card-interactions">
               <div className="card-header">
                 <div className="icon-box">
@@ -189,7 +177,6 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Card 4: Premium Profiles */}
             <div className="cap-card card-profiles">
               <div className="card-header">
                 <div className="icon-box">
@@ -236,7 +223,6 @@ const LandingPage = () => {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="landing-footer">
         <div className="footer-container">
           <div className="footer-brand-col">

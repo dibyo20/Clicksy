@@ -19,7 +19,6 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
       <div className="login-container">
         <div className="login-left">
           <div className="login-content">
@@ -53,11 +52,7 @@ const Login = () => {
                 />
               </div>
 
-              <div className="form-options">
-                <Link to="/forgot-password" className="forgot-password">
-                  Forgot password?
-                </Link>
-              </div>
+
 
               <button type="submit" className="submit-btn">
                 {loading ? "Logging in..." : "Login"}

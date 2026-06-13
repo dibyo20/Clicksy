@@ -31,11 +31,12 @@
     gap: 10px;
 
     .logo-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 6px;
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
       object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(0, 112, 243, 0.3);
     }
   }
 

@@ -22,7 +22,10 @@ const Sidebar = ({ activeTab, setActiveTab, navigationItems, user }) => {
     <>
       <aside className="left-sidebar">
         <div className="sidebar-header">
-          <h1 className="logo-text">Clicksy</h1>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+            <img src="/logo.png" alt="Clicksy Logo" style={{ width: "32px", height: "32px", borderRadius: "6px", border: "1.5px solid rgba(255, 255, 255, 0.15)", objectFit: "cover" }} />
+            <h1 className="logo-text" style={{ margin: 0 }}>Clicksy</h1>
+          </div>
           <span className="logo-subtitle">Premium Social</span>
         </div>
 
