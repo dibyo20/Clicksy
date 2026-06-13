@@ -34,4 +34,9 @@ export async function getUserPosts(){
     return response.data;
 }
 
+export async function getPostDetails(postId) {
+    const response = await api.get(`/details/${postId}`);
+    return response.data;
+}
+
 export default api;
