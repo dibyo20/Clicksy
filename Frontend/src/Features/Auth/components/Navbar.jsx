@@ -6,7 +6,8 @@ const Navbar = () => {
   return (
     <nav className="navbar-glass">
       <Link to="/" className="nav-brand">
-        Clicksy
+        <img src="/logo.png" alt="Clicksy Logo" className="logo-icon" />
+        <span>Clicksy</span>
       </Link>
     </nav>
   );
