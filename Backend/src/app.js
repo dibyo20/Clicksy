@@ -15,9 +15,16 @@ app.use(cors({
     credentials: true
 }));
 
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Clicky Backend is running..."
+    });
+});
+
 // routes
-app.use("/api/auth", authRouter); 
+app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
-app.use("/api/users", userRouter); 
+app.use("/api/users", userRouter);
 
 module.exports = app;
