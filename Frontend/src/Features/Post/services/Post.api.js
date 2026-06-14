@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api/posts',
+    baseURL: `${API_URL}/posts`,
     withCredentials: true
 });
 
@@ -29,7 +31,7 @@ export async function unlikePost(postId) {
     return response.data;
 }
 
-export async function getUserPosts(){
+export async function getUserPosts() {
     const response = await api.get('/');
     return response.data;
 }
