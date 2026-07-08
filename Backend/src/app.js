@@ -11,7 +11,7 @@ const userRouter = require("./routes/user.routes.js");
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: ["http://localhost:5173", 'https://clicksy.dibyo.tech', 'http://clicksy.dibyo.tech', process.env.FRONTEND_URL].filter(Boolean),
     credentials: true
 }));
 
