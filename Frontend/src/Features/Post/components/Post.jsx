@@ -2,9 +2,6 @@ import React from "react";
 import { usePost } from "../hooks/usePost.js";
 import { useAuth } from "../../Auth/hooks/useAuth.js";
 import PostCard from "./PostCard.jsx";
-import "../../../../public/p23.jpg";
-import "../../../../public/p16.jpg";
-import "../../../../public/p5.jpg";
 
 const Post = () => {
   const { feed, loading, handleLike, handleUnlike } = usePost();
@@ -73,7 +70,7 @@ const Post = () => {
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img
-              src="/p23.jpg"
+              src="/p6.jpg"
               alt="Test1"
               className="story-avatar"
             />
