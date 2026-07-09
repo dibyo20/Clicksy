@@ -2,6 +2,9 @@ import React from "react";
 import { usePost } from "../hooks/usePost.js";
 import { useAuth } from "../../Auth/hooks/useAuth.js";
 import PostCard from "./PostCard.jsx";
+import "../../../../public/p23.jpg";
+import "../../../../public/p16.jpg";
+import "../../../../public/p5.jpg";
 
 const Post = () => {
   const { feed, loading, handleLike, handleUnlike } = usePost();
@@ -70,7 +73,7 @@ const Post = () => {
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img
-              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              src="/p23.jpg"
               alt="Test1"
               className="story-avatar"
             />
@@ -81,7 +84,7 @@ const Post = () => {
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img
-              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              src="/p5.jpg"
               alt="Test2"
               className="story-avatar"
             />
@@ -92,12 +95,45 @@ const Post = () => {
         <div className="story-item">
           <div className="story-avatar-wrapper ring-active">
             <img
-              src="https://ik.imagekit.io/ufnhisesq/instagram-posts/istockphoto-2177842022-1024x1024.jpg"
+              src="/p16.jpg"
               alt="Test3"
               className="story-avatar"
             />
           </div>
           <span className="story-username">Test3</span>
+        </div>
+
+        <div className="story-item">
+          <div className="story-avatar-wrapper ring-active">
+            <img
+              src="/p7.jpg"
+              alt="Test4"
+              className="story-avatar"
+            />
+          </div>
+          <span className="story-username">Test4</span>
+        </div>
+
+        <div className="story-item">
+          <div className="story-avatar-wrapper ring-active">
+            <img
+              src="/p14.jpg"
+              alt="Test5"
+              className="story-avatar"
+            />
+          </div>
+          <span className="story-username">Test5</span>
+        </div>
+
+        <div className="story-item">
+          <div className="story-avatar-wrapper ring-active">
+            <img
+              src="/p8.jpg"
+              alt="Test6"
+              className="story-avatar"
+            />
+          </div>
+          <span className="story-username">Test6</span>
         </div>
       </section>
 
