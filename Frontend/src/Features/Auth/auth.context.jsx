@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     const checkSession = async () => {
       try {
         const response = await getProfile();
-        setUser(response.user);
+        setUser(response);
       } catch (err) {
         console.log("No active session:", err.message);
       } finally {
