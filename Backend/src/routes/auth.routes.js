@@ -1,5 +1,5 @@
 const authRouter = require("express").Router();
-const { registerController, loginController } = require("../controllers/auth.controller.js");
+const { registerController, loginController, logoutController, getUserController } = require("../controllers/auth.controller.js");
 
 /**
  * POST /api/auth/register
@@ -16,5 +16,13 @@ authRouter.post("/register", registerController);
  * 
  */
 authRouter.post("/login", loginController);
+
+/**
+ * POST /api/auth/logout
+ * Description: Logout an user
+ * Protected: Yes
+ * 
+ */
+authRouter.post("/logout", logoutController);
 
 module.exports = authRouter;
