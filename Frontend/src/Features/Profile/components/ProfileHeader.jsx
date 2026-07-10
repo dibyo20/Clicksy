@@ -1,4 +1,5 @@
 import React from "react";
+import LogoutButton from "../../Auth/components/LogoutButton.jsx";
 
 const ProfileHeader = ({ loading, profile, followingCount, followersCount, userPostsCount, onViewFollowers, onViewFollowing, onEditProfile, onEditProfilePic }) => {
   const { fullname, username, profileImage, bio } = profile || {};
@@ -80,6 +81,7 @@ const ProfileHeader = ({ loading, profile, followingCount, followersCount, userP
           </svg>
           <span>Edit Profile</span>
         </button>
+        <LogoutButton variant="pill" />
       </div>
     </div>
   );

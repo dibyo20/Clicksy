@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreatePostModal from "../components/CreatePostModal.jsx";
 import MobileBottomNav from "../components/MobileBottomNav.jsx";
@@ -18,6 +18,12 @@ const Feed = () => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/login");
+    }
+  }, [loading, user, navigate]);
 
   if (loading) {
     return (
