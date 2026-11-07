@@ -104,9 +104,10 @@ async function logoutController(req, res) {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
     });
 
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
         message: "Logged out successfully",
     });
