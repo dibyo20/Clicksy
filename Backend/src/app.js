@@ -29,6 +29,7 @@ app.use(cors({
     credentials: true
 }));
 
+// health route
 app.get("/health", (req, res) => {
     res.status(200).json({
         success: true,
